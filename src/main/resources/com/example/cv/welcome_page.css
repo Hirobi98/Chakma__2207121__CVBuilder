@@ -1,0 +1,90 @@
+.root {
+    -fx-background-color: #1E2B38;
+    -fx-font-family: "Verdana", sans-serif;
+}
+
+
+.title-label {
+    -fx-font-size: 60px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.label {
+    -fx-font-size: 45px;
+    -fx-text-fill: #CED4DA;
+    -fx-font-family: Gabriola;
+}
+
+
+.text-field, .text-area {
+    -fx-border-color: #4A90E2;
+    -fx-border-width: 1px;
+    -fx-padding: 8px;
+    -fx-background-color: #2C3E50;
+    -fx-text-fill: #F8F9FA;
+    -fx-prompt-text-fill: #A0AEC0;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+
+.button {
+    -fx-background-color: #4A90E2;
+    -fx-text-fill: white;
+    -fx-font-family: Gabriola;
+    -fx-font-size: 25px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(74, 144, 226, 0.4), 10, 0.0, 0, 0);
+}
+
+.button:hover {
+    -fx-background-color: #357ABD;
+}
+
+/* --- Small Add/Remove Buttons (Example: + Add Education) --- */
+.small-add-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4A90E2;
+    -fx-font-weight: bold;
+    -fx-padding: 5px;
+    -fx-cursor: hand;
+}
+.small-add-button:hover {
+    -fx-underline: true;
+}
+
+
+.entry-container {
+    -fx-border-color: #4A90E2;
+    -fx-border-width: 1px;
+    -fx-padding: 15px;
+    -fx-background-color: #2C3E50;
+    -fx-border-radius: 8px;
+    -fx-spacing: 10px;
+}
+
+
+.cv-display-area {
+    -fx-background-color: white;
+    -fx-padding: 30px;
+    -fx-border-color: #000000;
+    -fx-border-width: 1px;
+}
+.cv-name {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E2B38;
+}
+.cv-section-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4A90E2;
+    -fx-padding: 5px 0 2px 0;
+}
+.cv-body-text {
+    -fx-font-size: 14px;
+    -fx-text-fill: #343A40;
+}

@@ -8,6 +8,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,6 +20,25 @@ public class HelloController {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    @FXML
+    private TextField fullNameField;
+    @FXML
+
+    private TextField emailField;
+    @FXML
+    private TextField phoneField;
+    @FXML
+    private TextField addressField;
+    @FXML
+    private TextArea skillsTextArea;
+    @FXML
+    private TextArea projectsTextArea;
+
+    // Dynamic Containers (from hello-view2.fxml)
+    @FXML
+    private VBox educationContainer;
+    @FXML
+    private VBox workExperienceContainer;
 
     /*public void switch_to_scene1(ActionEvent event) throws IOException {
         Parent root =FXMLLoader.load(HelloApplication.class.getResource("hello-view.fxml"));
@@ -26,6 +48,12 @@ public class HelloController {
         stage.show();
 
     }*/
+    @FXML
+    public void addnewedu(ActionEvent event) throws IOException {
+        
+
+
+    }
     @FXML
     public void switch_to_scene2(ActionEvent event) throws IOException {
         /*Parent root =FXMLLoader.load(HelloApplication.class.getResource("hello-view2.fxml"));
