@@ -1,6 +1,7 @@
 .root {
-    -fx-background-color: #1E2B38;
+    -fx-background-color: #0a365e;
     -fx-font-family: "Verdana", sans-serif;
+
 }
 
 
@@ -8,24 +9,27 @@
     -fx-font-size: 60px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
+    -fx-alignment: center;
 }
 
 .label {
-    -fx-font-size: 45px;
-    -fx-text-fill: #CED4DA;
-    -fx-font-family: Gabriola;
+    -fx-font-size: 20px;
+    -fx-text-fill: #1a1a1c;
+    -fx-font-family: "Inter Semi Bold";
+
+
 }
 
 
 .text-field, .text-area {
     -fx-border-color: #4A90E2;
     -fx-border-width: 1px;
-    -fx-padding: 8px;
-    -fx-background-color: #2C3E50;
+    -fx-padding: 2px;
+    -fx-background-color: #093053;
     -fx-text-fill: #F8F9FA;
-    -fx-prompt-text-fill: #A0AEC0;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
+    -fx-prompt-text-fill: #939395;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
 }
 
 
@@ -33,7 +37,7 @@
     -fx-background-color: #4A90E2;
     -fx-text-fill: white;
     -fx-font-family: Gabriola;
-    -fx-font-size: 25px;
+    -fx-font-size: 15px;
     -fx-padding: 10px 20px;
     -fx-cursor: hand;
     -fx-background-radius: 8px;
@@ -44,10 +48,10 @@
     -fx-background-color: #357ABD;
 }
 
-/* --- Small Add/Remove Buttons (Example: + Add Education) --- */
+
 .small-add-button {
-    -fx-background-color: transparent;
-    -fx-text-fill: #4A90E2;
+    -fx-background-color: #4A90E2;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-padding: 5px;
     -fx-cursor: hand;
@@ -62,7 +66,7 @@
     -fx-border-width: 1px;
     -fx-padding: 15px;
     -fx-background-color: #2C3E50;
-    -fx-border-radius: 8px;
+    -fx-border-radius: 2px;
     -fx-spacing: 10px;
 }
 

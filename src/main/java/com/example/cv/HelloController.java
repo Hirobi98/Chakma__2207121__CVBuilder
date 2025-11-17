@@ -40,17 +40,23 @@ public class HelloController {
     @FXML
     private VBox workExperienceContainer;
 
-    /*public void switch_to_scene1(ActionEvent event) throws IOException {
+    public void switch_to_scene1(ActionEvent event) throws IOException {
         Parent root =FXMLLoader.load(HelloApplication.class.getResource("hello-view.fxml"));
         stage=(Stage)((Node)event.getSource()).getScene().getWindow();
         scene=new Scene(root);
         stage.setScene(scene);
         stage.show();
 
-    }*/
+    }
     @FXML
     public void addnewedu(ActionEvent event) throws IOException {
-        
+
+
+
+    }
+    @FXML
+    public void addnewworkexperience(ActionEvent event) throws IOException {
+
 
 
     }
@@ -68,6 +74,16 @@ public class HelloController {
         stage.setScene(scene);
         stage.show();
 
+
+    }
+
+    @FXML
+    public void switch_to_final_cv(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("preview_cv.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
 
     }
 

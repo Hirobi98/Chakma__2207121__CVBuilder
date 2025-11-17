@@ -1,57 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<ScrollPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cv.HelloController">
+<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cv.HelloController">
     <content>
-        <VBox spacing="15.0">
-            <children>
-                <AnchorPane prefHeight="667.0" prefWidth="600.0">
-                    <children>
-                        <TextField layoutX="150.0" layoutY="107.0" prefHeight="26.0" prefWidth="464.0" />
-                        <Label layoutX="9.0" layoutY="151.0" text="Enter your phone number" />
-                        <Button layoutX="422.0" layoutY="481.0" mnemonicParsing="false"  text="Switch to scene 1" />
-                        <TextArea layoutX="10.0" layoutY="393.0" prefHeight="74.0" prefWidth="584.0" promptText="python,graphics,...." />
-                        <Label layoutX="16.0" layoutY="364.0" text="Your Skills" />
-                        <Label layoutX="9.0" layoutY="194.0" text="Your Educational Qualifications" />
-                        <Label layoutX="10.0" layoutY="507.0" text="Work Experience" />
-                        <VBox layoutX="9.0" layoutY="213.0" prefHeight="87.0" prefWidth="628.0" />
-                        <Button layoutX="16.0" layoutY="308.0" mnemonicParsing="false" text="+ Add Eduaction" />
-                        <VBox layoutX="10.0" layoutY="542.0" prefHeight="78.0" prefWidth="630.0" />
-                        <Button layoutX="13.0" layoutY="627.0" mnemonicParsing="false" text="+ Add Work" />
-                        <Label layoutX="15.0" layoutY="27.0" text="Enter your full name" />
-                        <TextField layoutX="150.0" layoutY="70.0" prefHeight="26.0" prefWidth="462.0" />
-                        <Label layoutX="14.0" layoutY="74.0" text="Enter you Email Address" />
-                        <TextField layoutX="150.0" layoutY="23.0" prefHeight="26.0" prefWidth="464.0" />
-                        <Label layoutX="14.0" layoutY="111.0" text="Enter your address" />
-                        <TextField layoutX="152.0" layoutY="147.0" prefHeight="26.0" prefWidth="464.0" />
-                    </children>
-                </AnchorPane>
-                <Label text="Projects" />
-                <TextArea prefHeight="74.0" prefWidth="216.0" promptText="github.com/user/cv-repo" />
-                <HBox>
-                    <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="22.0" prefWidth="282.0" text="Generate your CV" textAlignment="CENTER">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </Button>
-                    </children>
-                    <VBox.margin>
-                        <Insets left="160.0" top="10.0" />
-                    </VBox.margin>
+        <!-- Outer VBox for the entire form content -->
+        <VBox prefWidth="650.0" spacing="20.0" style="-fx-padding: 30;">
+
+            <!-- SECTION 1: Contact Information (Organized in a VBox/HBox grid) -->
+            <VBox spacing="10.0">
+                <Label styleClass="cv-section-title" text="Contact Information" />
+
+                <!-- Full Name -->
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label minWidth="200" styleClass="label" text="Enter your full name" />
+                    <TextField fx:id="fullNameField" promptText="John Doe" styleClass="text-field" HBox.hgrow="ALWAYS" />
                 </HBox>
-            </children>
+
+                <!-- Email Address -->
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label minWidth="200" styleClass="label" text="Enter your Email Address" />
+                    <TextField fx:id="emailField" promptText="john.doe@email.com" styleClass="text-field" HBox.hgrow="ALWAYS" />
+                </HBox>
+
+                <!-- Phone Number -->
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label minWidth="200" styleClass="label" text="Enter your phone number" />
+                    <TextField fx:id="phoneField" promptText="+880...." styleClass="text-field" HBox.hgrow="ALWAYS" />
+                </HBox>
+
+                <!-- Address -->
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label minWidth="200" styleClass="label" text="Enter your address" />
+                    <TextField fx:id="addressField" promptText="City, State, Country" styleClass="text-field" HBox.hgrow="ALWAYS" />
+                </HBox>
+            </VBox>
+
+            <!-- Separator for visual breakdown -->
+            <HBox style="-fx-border-color: #4A90E2; -fx-border-width: 0 0 1 0; -fx-padding: 0 0 5 0;" />
+
+            <!-- SECTION 2: Educational Qualifications -->
+            <VBox spacing="10.0">
+                <Label styleClass="cv-section-title" text="Your Educational Qualifications" />
+                <VBox fx:id="educationContainer" spacing="15.0" />
+                <!-- The addNewEducation action must be defined in your controller -->
+                <Button onAction="#addnewedu" styleClass="small-add-button" text="+ Add Education" />
+            </VBox>
+
+            <!-- SECTION 3: Work Experience -->
+            <VBox spacing="10.0">
+                <Label styleClass="cv-section-title" text="Work Experience" />
+                <VBox fx:id="workExperienceContainer" spacing="15.0" />
+                <!-- The addNewWorkExperience action must be defined in your controller -->
+                <Button onAction="#addnewworkexperience" styleClass="small-add-button" text="+ Add Work Experience" />
+            </VBox>
+
+            <!-- SECTION 4: Skills -->
+            <VBox spacing="10.0">
+                <Label styleClass="cv-section-title" text="Your Skills" />
+                <TextArea fx:id="skillsTextArea" prefHeight="80.0" promptText="Python, Java, Data Analysis, Git..." styleClass="text-area" />
+            </VBox>
+
+            <!-- SECTION 5: Projects -->
+            <VBox spacing="10.0">
+                <Label styleClass="cv-section-title" text="Projects" />
+                <TextArea fx:id="projectsTextArea" prefHeight="80.0" promptText="Developed a real-time chat application (github.com/user/project)" styleClass="text-area" />
+            </VBox>
+
+            <!-- Action Buttons -->
+            <VBox alignment="CENTER" spacing="15.0">
+                <!-- Generate CV Button -->
+                <Button onAction="#switch_to_final_cv" prefWidth="300.0" styleClass="button" text="Generate your CV">
+                    <font>
+                        <Font size="25.0" />
+                    </font>
+                </Button>
+                <!-- Switch back to scene 1 (if you need it for debugging/navigation) -->
+                <Button onAction="#switch_to_scene1" styleClass="small-add-button" text="Back to Welcome Screen" />
+            </VBox>
         </VBox>
     </content>
+   <stylesheets>
+      <URL value="@welcome_page.css" />
+      <URL value="@welcome_page.css" />
+   </stylesheets>
 </ScrollPane>
