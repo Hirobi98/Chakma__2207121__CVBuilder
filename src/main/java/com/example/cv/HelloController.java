@@ -7,13 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class HelloController {
     @FXML
@@ -101,6 +100,21 @@ public class HelloController {
     public void generateCvFileAndSwitch(ActionEvent event) throws IOException {
 
 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm CV Generation");
+        alert.setHeaderText("Are you sure you want to generate your CV?");
+        alert.setContentText("Check your data one last time before previewing.");
+
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+
+        if (result.isPresent() && result.get() != ButtonType.OK) {
+            return;
+        }
+        Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+
         String fullName = fullNameField.getText();
         String email = emailField.getText();
         String phone = phoneField.getText();
@@ -125,7 +139,7 @@ public class HelloController {
         finalSceneController.display_education(educationText);
 
 
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = primaryStage;
         scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("CV Builder - Final CV");
