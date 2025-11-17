@@ -10,55 +10,48 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cv.HelloController" stylesheets="@welcome_page.css">
+<ScrollPane fitToWidth="true" stylesheets="@welcome_page.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cv.HelloController">
     <content>
-        <!-- Outer VBox for the entire form content -->
-        <VBox spacing="20.0" prefWidth="650.0" style="-fx-padding: 30;">
 
-            <!-- ========================================================== -->
-            <!-- SECTION 1: Contact Information (STATIC FIELDS AT THE TOP) -->
-            <!-- ========================================================== -->
+        <VBox prefWidth="650.0" spacing="20.0" style="-fx-padding: 30;">
+
             <VBox spacing="10.0">
                 <Label styleClass="cv-section-title" text="Contact Information" />
 
-                <!-- Full Name -->
+
                 <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Label styleClass="label" text="Full Name" minWidth="150" />
-                    <TextField fx:id="fullNameField" promptText="John Doe" styleClass="text-field" HBox.hgrow="ALWAYS" />
+                    <Label fx:id="name" minWidth="150" styleClass="label" text="Full Name" />
+                    <TextField fx:id="fullNameField" promptText="Username" styleClass="text-field" HBox.hgrow="ALWAYS" />
                 </HBox>
 
-                <!-- Email Address -->
+
                 <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Label styleClass="label" text="Email Address" minWidth="150" />
-                    <TextField fx:id="emailField" promptText="john.doe@email.com" styleClass="text-field" HBox.hgrow="ALWAYS" />
+                    <Label minWidth="150" styleClass="label" text="Email Address" />
+                    <TextField fx:id="emailField" promptText="username@email.com" styleClass="text-field" HBox.hgrow="ALWAYS" />
                 </HBox>
 
-                <!-- Phone Number -->
+
                 <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Label styleClass="label" text="Phone Number" minWidth="150" />
-                    <TextField fx:id="phoneField" promptText="+1-555-1234" styleClass="text-field" HBox.hgrow="ALWAYS" />
+                    <Label minWidth="150" styleClass="label" text="Phone Number" />
+                    <TextField fx:id="phoneField" promptText="+880-" styleClass="text-field" HBox.hgrow="ALWAYS" />
                 </HBox>
 
-                <!-- Address -->
+
                 <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Label styleClass="label" text="Address" minWidth="150" />
+                    <Label minWidth="150" styleClass="label" text="Address" />
                     <TextField fx:id="addressField" promptText="City, State, Country" styleClass="text-field" HBox.hgrow="ALWAYS" />
                 </HBox>
             </VBox>
 
             <Separator style="-fx-max-width: 500;" />
 
-            <!-- ========================================================== -->
-            <!-- SECTION 2: SKILLS -->
-            <!-- ========================================================== -->
+
             <VBox spacing="10.0">
                 <Label styleClass="cv-section-title" text="Your Skills" />
                 <TextArea fx:id="skillsTextArea" prefHeight="80.0" promptText="Python, Java, Data Analysis, Git..." styleClass="text-area" />
             </VBox>
 
-            <!-- ========================================================== -->
-            <!-- SECTION 3: PROJECTS -->
-            <!-- ========================================================== -->
+
             <VBox spacing="10.0">
                 <Label styleClass="cv-section-title" text="Projects" />
                 <TextArea fx:id="projectsTextArea" prefHeight="80.0" promptText="Developed a real-time chat application (github.com/user/project)" styleClass="text-area" />
@@ -66,38 +59,32 @@
 
             <Separator style="-fx-max-width: 500;" />
 
-            <!-- ========================================================== -->
-            <!-- SECTION 4: EDUCATIONAL QUALIFICATIONS (TEXT AREA) -->
-            <!-- ========================================================== -->
+
             <VBox spacing="10.0">
-                <Label styleClass="cv-section-title" text="Educational Qualifications (Free-form Text)" />
+                <Label styleClass="cv-section-title" text="Educational Qualifications" />
                 <TextArea fx:id="educationTextArea" prefHeight="150.0" promptText="Degree, Institution, and Year (e.g., M.Sc. Computer Science, University of X, 2020-2022)" styleClass="text-area" />
             </VBox>
 
             <Separator style="-fx-max-width: 500;" />
 
-            <!-- ========================================================== -->
-            <!-- SECTION 5: WORK EXPERIENCE (TEXT AREA) -->
-            <!-- ========================================================== -->
+
             <VBox spacing="10.0">
-                <Label styleClass="cv-section-title" text="Work Experience (Free-form Text)" />
+                <Label styleClass="cv-section-title" text="Work Experience " />
                 <TextArea fx:id="workExperienceTextArea" prefHeight="150.0" promptText="Job Title 1, Company, Dates, Key Responsibilities...&#10;Job Title 2, Company, Dates, Key Responsibilities..." styleClass="text-area" />
             </VBox>
 
             <Separator style="-fx-max-width: 500;" />
 
-            <!-- ========================================================== -->
-            <!-- ACTION BUTTONS -->
-            <!-- ========================================================== -->
-            <VBox spacing="15.0" alignment="CENTER">
+
+            <VBox alignment="CENTER" spacing="15.0">
                 <!-- Generate CV Button -->
-                <Button onAction="#switch_to_final_cv" prefWidth="300.0" text="Generate your CV" styleClass="button">
+                <Button onAction="#generateCvFileAndSwitch" prefWidth="300.0" styleClass="button" text="Generate your CV">
                     <font>
                         <Font size="25.0" />
                     </font>
                 </Button>
                 <!-- Switch back button -->
-                <Button onAction="#switch_to_scene1" text="Back to Welcome Screen" styleClass="small-add-button" />
+                <Button onAction="#switch_to_scene1" styleClass="small-add-button" text="Back to Welcome Screen" />
             </VBox>
         </VBox>
     </content>

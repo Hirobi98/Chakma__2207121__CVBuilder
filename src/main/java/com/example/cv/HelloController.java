@@ -18,7 +18,9 @@ import java.io.IOException;
 public class HelloController {
     @FXML
     private Stage stage;
+    @FXML
     private Scene scene;
+    @FXML
     private Parent root;
     @FXML
     private TextField fullNameField;
@@ -26,80 +28,45 @@ public class HelloController {
 
     private TextField emailField;
     @FXML
+
     private TextField phoneField;
     @FXML
+
     private TextField addressField;
     @FXML
+
     private TextArea skillsTextArea;
     @FXML
     private TextArea projectsTextArea;
+    @FXML
+    private TextArea skillTextArea;
+    @FXML
+    private TextArea educationTextArea;
+    @FXML
+    private TextArea workExperienceTextArea;
 
-    // Dynamic Containers (from hello-view2.fxml)
+
     @FXML
     private VBox educationContainer;
     @FXML
     private VBox workExperienceContainer;
 
-    public static class educationentry{
-        String degree;
-        String institution;
-        String year;
-    }
-    public static class workexperienceentry{
-        String company_name;
-        String period;
-        String job_title;
-
-
-    }
     @FXML
-    public void addnewedu(ActionEvent event){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("educationentry.fxml"));
-            fxmlLoader.setController(this);
-            Node eduentry=fxmlLoader.load();
-            educationContainer.getChildren().add(eduentry);
-
-
-
-        }
-        catch(IOException e){
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-
-        }
-
-    }
+    private Label name;
     @FXML
-    public void addnewworkexperience(ActionEvent event){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("workexperienceentry.fxml"));
-            fxmlLoader.setController(this);
-            Node workentry=fxmlLoader.load();
-            educationContainer.getChildren().add(workentry);
-
-
-
-        }
-        catch(IOException e){
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-
-        }
-
-    }
+    private Label contact;
     @FXML
-    public void removeEntry(ActionEvent event) {
+    private Label skilldisplay;
+    @FXML
 
-        Node source = (Node) event.getSource();
-        Node entryToRemove = source.getParent();
+    private Label projectdisplay;
 
 
-        if (entryToRemove.getParent() instanceof VBox) {
-            ((VBox)entryToRemove.getParent()).getChildren().remove(entryToRemove);
-        }
-    }
 
+
+
+
+    @FXML
     public void switch_to_scene1(ActionEvent event) throws IOException {
         Parent root =FXMLLoader.load(HelloApplication.class.getResource("hello-view.fxml"));
         stage=(Stage)((Node)event.getSource()).getScene().getWindow();
@@ -129,14 +96,94 @@ public class HelloController {
 
     }
 
+
     @FXML
-    public void switch_to_final_cv(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("preview_cv.fxml"));
+    public void generateCvFileAndSwitch(ActionEvent event) throws IOException {
+
+
+        String fullName = fullNameField.getText();
+        String email = emailField.getText();
+        String phone = phoneField.getText();
+        String address = addressField.getText();
+        String skills = skillsTextArea.getText();
+        String projects = projectsTextArea.getText();
+        String educationText = educationTextArea.getText();
+        String workExperienceText = workExperienceTextArea.getText();
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("preview_cv.fxml"));
+        Parent root = loader.load();
+
+
+        HelloController finalSceneController = loader.getController();
+
+
+        finalSceneController.display_personal_info(fullName, email, phone, address);
+        finalSceneController.display_skills(skills);
+        finalSceneController.display_work_experience(workExperienceText);
+        finalSceneController.display_projects(projects);
+        finalSceneController.display_education(educationText);
+
+
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("CV Builder - Final CV");
         stage.show();
+    }
 
+
+    @FXML
+    public void display_personal_info(String name2, String email2, String phone2, String address2) {
+        if (name != null) {
+
+            name.setText(name2.trim().isEmpty() ? "CV Placeholder Name" : name2);
+            contact.setText(
+                    "Email: " + email2 + " | Phone: " + phone2 + " | Address: " + address2
+            );
+        }
+    }
+    @FXML
+    public void display_skills(String skills) {
+        if (skilldisplay != null) {
+            skilldisplay.setText(skills);
+
+        }
+    }
+    @FXML
+    public void display_projects(String projects) {
+        if (projectdisplay != null) {
+            projectdisplay.setText(projects);
+
+        }
+    }
+
+    @FXML
+    public void display_work_experience(String workExperienceText) {
+        if (workExperienceContainer != null) {
+            workExperienceContainer .getChildren().clear();
+
+
+            Label rawTextLabel = new Label(workExperienceText);
+            rawTextLabel.setWrapText(true);
+            rawTextLabel.setStyle("-fx-padding: 0 0 0 15; -fx-text-fill: #343A40;");
+
+            workExperienceContainer .getChildren().add(rawTextLabel);
+        }
+    }
+
+    @FXML
+    public void display_education(String educationText) {
+        if (educationContainer != null) {
+            educationContainer.getChildren().clear();
+
+            // Display the raw text input by the user
+            Label rawTextLabel = new Label(educationText);
+            rawTextLabel.setWrapText(true);
+            rawTextLabel.setStyle("-fx-padding: 0 0 0 15; -fx-text-fill: #343A40;");
+
+            educationContainer.getChildren().add(rawTextLabel);
+        }
     }
 
 

@@ -13,21 +13,26 @@
    <content>
       <AnchorPane prefHeight="800.0" prefWidth="700.0" stylesheets="@application.css">
           <VBox layoutX="50.0" layoutY="7.0" prefHeight="774.0" prefWidth="600.0" styleClass="cv-display-box">
-              <Label fx:id="nameLabel" styleClass="cv-header" text="Full Name" />
-              <Label fx:id="contactLabel" text="Email | Phone | Address" />
+              <Label fx:id="name" styleClass="cv-header" text="Full Name" />
+              <Label fx:id="contact" text="Email | Phone | Address" />
               <Separator />
-      
-              <Label styleClass="cv-section-title" text="Skills" />
-              <Label fx:id="skillsDisplayArea" wrapText="true" />
-              <Separator />
-      
-              <Label styleClass="cv-section-title" text="Work Experience" />
-              <VBox fx:id="workExperienceDisplayVBox" spacing="10" />
-              <Separator />
-      
+
               <Label styleClass="cv-section-title" text="Educational Qualifications" />
-              <VBox fx:id="educationDisplayVBox" spacing="10" />
-      
+              <VBox fx:id="educationContainer" spacing="10" />
+
+
+              <Label styleClass="cv-section-title" text="Skills" />
+              <Label fx:id="skilldisplay" wrapText="true" />
+              <Separator />
+
+              <Label styleClass="cv-section-title" text="Work Experience" />
+              <VBox fx:id="workExperienceContainer" spacing="10" />
+              <Separator />
+              <Label styleClass="cv-section-title" text="PROJECTS" />
+
+              <Label fx:id="projectdisplay" styleClass="cv-body-text" wrapText="true" />
+              <Separator />
+
               <Button onAction="#switch_to_scene1" styleClass="button" text="Start Over">
                   <VBox.margin>
                   <Insets top="20" />
