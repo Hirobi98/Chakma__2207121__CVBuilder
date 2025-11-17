@@ -6,39 +6,65 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fitToWidth="true" stylesheets="@welcome_page.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cv.HelloController">
+    <content>
+        <AnchorPane prefHeight="800.0" prefWidth="700.0">
+            <HBox styleClass="cv-page-container" prefHeight="800.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+                <VBox styleClass="cv-left-column" prefWidth="280.0" HBox.hgrow="ALWAYS">
+                    <padding>
+                        <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
+                    </padding>
+
+                    <Label styleClass="cv-section-title" text="CONTACT" />
+                    <Label fx:id="contact" styleClass="cv-body-text" text="Email | Phone | Address" />
+                    <Separator styleClass="cv-separator-left" />
+
+                    <Label styleClass="cv-section-title" text="EDUCATION" />
+                    <VBox fx:id="educationContainer" spacing="10" />
+                    <Separator styleClass="cv-separator-left" />
 
 
-<ScrollPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cv.HelloController">
-   <content>
-      <AnchorPane prefHeight="800.0" prefWidth="700.0" stylesheets="@application.css">
-          <VBox layoutX="50.0" layoutY="7.0" prefHeight="774.0" prefWidth="600.0" styleClass="cv-display-box">
-              <Label fx:id="name" styleClass="cv-header" text="Full Name" />
-              <Label fx:id="contact" text="Email | Phone | Address" />
-              <Separator />
-
-              <Label styleClass="cv-section-title" text="Educational Qualifications" />
-              <VBox fx:id="educationContainer" spacing="10" />
+                    <Separator styleClass="cv-separator-left" />
 
 
-              <Label styleClass="cv-section-title" text="Skills" />
-              <Label fx:id="skilldisplay" wrapText="true" />
-              <Separator />
 
-              <Label styleClass="cv-section-title" text="Work Experience" />
-              <VBox fx:id="workExperienceContainer" spacing="10" />
-              <Separator />
-              <Label styleClass="cv-section-title" text="PROJECTS" />
+                </VBox>
 
-              <Label fx:id="projectdisplay" styleClass="cv-body-text" wrapText="true" />
-              <Separator />
+                <VBox styleClass="cv-right-column" prefWidth="420.0" HBox.hgrow="ALWAYS">
+                    <padding>
+                        <Insets bottom="30.0" left="20.0" right="40.0" top="30.0" />
+                    </padding>
 
-              <Button onAction="#switch_to_scene1" styleClass="button" text="Start Over">
-                  <VBox.margin>
-                  <Insets top="20" />
-               </VBox.margin>
-              </Button>
-          </VBox>
-      </AnchorPane>
-   </content>
+                    <Label fx:id="name" styleClass="cv-display-box" text="">
+                        <font>
+                            <Font size="25.0" />
+                        </font>
+                    </Label>
+                    <Label styleClass="cv-job-title" text="" />
+
+                    <Label styleClass="cv-section-title-right" text="Projects" />
+                    <Label fx:id="projectdisplay" styleClass="cv-body-text-right" wrapText="true" text="" />
+                    <Separator styleClass="cv-separator-right" />
+
+                    <Label styleClass="cv-section-title-right" text="EXPERIENCE" />
+                    <VBox fx:id="workExperienceContainer" spacing="10" />
+                    <Separator styleClass="cv-separator-right" />
+
+                    <Label styleClass="cv-section-title-right" text="SKILL" />
+                    <Label fx:id="skilldisplay" styleClass="cv-body-text-right" wrapText="true" text="No skills entered." />
+
+                    <Button onAction="#switch_to_scene1" styleClass="button" text="Start Over">
+                        <VBox.margin>
+                            <Insets top="20" />
+                        </VBox.margin>
+                    </Button>
+                </VBox>
+            </HBox>
+        </AnchorPane>
+    </content>
 </ScrollPane>

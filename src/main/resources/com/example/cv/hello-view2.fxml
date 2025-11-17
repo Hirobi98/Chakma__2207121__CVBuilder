@@ -1,91 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<ScrollPane fitToWidth="true" stylesheets="@welcome_page.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cv.HelloController">
+<ScrollPane fitToWidth="true" styleClass="root" stylesheets="@welcome_page.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cv.HelloController">
     <content>
-
-        <VBox prefWidth="650.0" spacing="20.0" style="-fx-padding: 30;">
-
-            <VBox spacing="10.0">
-                <Label styleClass="cv-section-title" text="Contact Information" />
-
-
-                <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Label fx:id="name" minWidth="150" styleClass="label" text="Full Name" />
-                    <TextField fx:id="fullNameField" promptText="Username" styleClass="text-field" HBox.hgrow="ALWAYS" />
-                </HBox>
-
-
-                <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Label minWidth="150" styleClass="label" text="Email Address" />
-                    <TextField fx:id="emailField" promptText="username@email.com" styleClass="text-field" HBox.hgrow="ALWAYS" />
-                </HBox>
-
-
-                <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Label minWidth="150" styleClass="label" text="Phone Number" />
-                    <TextField fx:id="phoneField" promptText="+880-" styleClass="text-field" HBox.hgrow="ALWAYS" />
-                </HBox>
-
-
-                <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Label minWidth="150" styleClass="label" text="Address" />
-                    <TextField fx:id="addressField" promptText="City, State, Country" styleClass="text-field" HBox.hgrow="ALWAYS" />
-                </HBox>
-            </VBox>
-
-            <Separator style="-fx-max-width: 500;" />
-
-
-            <VBox spacing="10.0">
-                <Label styleClass="cv-section-title" text="Your Skills" />
-                <TextArea fx:id="skillsTextArea" prefHeight="80.0" promptText="Python, Java, Data Analysis, Git..." styleClass="text-area" />
-            </VBox>
-
-
-            <VBox spacing="10.0">
-                <Label styleClass="cv-section-title" text="Projects" />
-                <TextArea fx:id="projectsTextArea" prefHeight="80.0" promptText="Developed a real-time chat application (github.com/user/project)" styleClass="text-area" />
-            </VBox>
-
-            <Separator style="-fx-max-width: 500;" />
-
-
-            <VBox spacing="10.0">
-                <Label styleClass="cv-section-title" text="Educational Qualifications" />
-                <TextArea fx:id="educationTextArea" prefHeight="150.0" promptText="Degree, Institution, and Year (e.g., M.Sc. Computer Science, University of X, 2020-2022)" styleClass="text-area" />
-            </VBox>
-
-            <Separator style="-fx-max-width: 500;" />
-
-
-            <VBox spacing="10.0">
-                <Label styleClass="cv-section-title" text="Work Experience " />
-                <TextArea fx:id="workExperienceTextArea" prefHeight="150.0" promptText="Job Title 1, Company, Dates, Key Responsibilities...&#10;Job Title 2, Company, Dates, Key Responsibilities..." styleClass="text-area" />
-            </VBox>
-
-            <Separator style="-fx-max-width: 500;" />
-
-
-            <VBox alignment="CENTER" spacing="15.0">
-                <!-- Generate CV Button -->
-                <Button onAction="#generateCvFileAndSwitch" prefWidth="300.0" styleClass="button" text="Generate your CV">
-                    <font>
-                        <Font size="25.0" />
-                    </font>
+        <VBox alignment="CENTER" styleClass="input-section-vbox">
+            <children>
+                <Label styleClass="title-label" text="CV Data Input" />
+                <VBox spacing="10.0">
+                    <children>
+                        <Label text="Personal Information" />
+                        <TextField fx:id="fullNameField" promptText="Full Name" />
+                        <TextField fx:id="emailField" promptText="Email Address" />
+                        <TextField fx:id="phoneField" promptText="Phone Number" />
+                        <TextField fx:id="addressField" promptText="Address / Location (e.g., London, UK)" />
+                    </children>
+                </VBox>
+                <Separator />
+                <VBox spacing="10.0">
+                    <children>
+                        <Label text="Projects Summary " />
+                        <TextArea fx:id="projectsTextArea" prefHeight="100.0" promptText="Write a short professional summary (1-3 paragraphs)." wrapText="true" />
+                    </children>
+                </VBox>
+                <Separator />
+                <VBox spacing="10.0">
+                    <children>
+                        <Label text="Work Experience" />
+                        <TextArea fx:id="workExperienceTextArea" prefHeight="150.0" promptText="Use double newlines (&#10;&#10;) to separate entries.&#10;Example:&#10;Job Title, Company | Year Range&#10;• Key achievement 1" wrapText="true" />
+                    </children>
+                </VBox>
+                <Separator />
+                <VBox spacing="10.0">
+                    <children>
+                        <Label text="Educational Qualifications" />
+                        <TextArea fx:id="educationTextArea" prefHeight="100.0" promptText="Use double newlines (&#10;&#10;) to separate entries.&#10;Example:&#10;Degree Name, Institution&#10;Year (e.g., 2018 - 2022)" wrapText="true" />
+                    </children>
+                </VBox>
+                <Separator />
+                <VBox spacing="10.0">
+                    <children>
+                        <Label text="Skills Summary" />
+                        <TextArea fx:id="skillsTextArea" prefHeight="80.0" promptText="List your skills separated by commas or newlines (e.g., Python, SQL, AWS, Figma, SEO)" wrapText="true" />
+                    </children>
+                </VBox>
+                <Button onAction="#generateCvFileAndSwitch" styleClass="button" text="Generate CV Preview">
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
                 </Button>
-                <!-- Switch back button -->
-                <Button onAction="#switch_to_scene1" styleClass="small-add-button" text="Back to Welcome Screen" />
-            </VBox>
+            </children>
+            <padding>
+                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            </padding>
         </VBox>
     </content>
 </ScrollPane>

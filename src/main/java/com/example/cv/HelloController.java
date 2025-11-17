@@ -15,105 +15,69 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class HelloController {
-    @FXML
-    private Stage stage;
-    @FXML
-    private Scene scene;
-    @FXML
-    private Parent root;
-    @FXML
-    private TextField fullNameField;
-    @FXML
-
-    private TextField emailField;
-    @FXML
-
-    private TextField phoneField;
-    @FXML
-
-    private TextField addressField;
-    @FXML
-
-    private TextArea skillsTextArea;
-    @FXML
-    private TextArea projectsTextArea;
-    @FXML
-    private TextArea skillTextArea;
-    @FXML
-    private TextArea educationTextArea;
-    @FXML
-    private TextArea workExperienceTextArea;
 
 
-    @FXML
-    private VBox educationContainer;
-    @FXML
-    private VBox workExperienceContainer;
 
-    @FXML
-    private Label name;
-    @FXML
-    private Label contact;
-    @FXML
-    private Label skilldisplay;
-    @FXML
+    @FXML private TextField fullNameField;
+    @FXML private TextField emailField;
+    @FXML private TextField phoneField;
+    @FXML private TextField addressField;
 
-    private Label projectdisplay;
+    @FXML private TextArea skillsTextArea;
+    @FXML private TextArea projectsTextArea;
+
+    @FXML private TextArea educationTextArea;
+    @FXML private TextArea workExperienceTextArea;
 
 
+    @FXML private VBox educationContainer;
+    @FXML private VBox workExperienceContainer;
+
+    @FXML private Label name;
+    @FXML private Label contact;
+    @FXML private Label skilldisplay;
+    @FXML private Label projectdisplay;
 
 
 
 
     @FXML
     public void switch_to_scene1(ActionEvent event) throws IOException {
+        Stage currentStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Parent root =FXMLLoader.load(HelloApplication.class.getResource("hello-view.fxml"));
-        stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-        scene=new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
+        Scene newScene = new Scene(root, currentStage.getScene().getWidth(), currentStage.getScene().getHeight());
+        newScene.getStylesheets().addAll(currentStage.getScene().getStylesheets());
+        currentStage.setScene(newScene);
+        currentStage.setTitle("CV Builder - Welcome");
+        currentStage.show();
     }
-
-
-
 
     @FXML
     public void switch_to_scene2(ActionEvent event) throws IOException {
-        /*Parent root =FXMLLoader.load(HelloApplication.class.getResource("hello-view2.fxml"));
-        stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-        scene=new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        */
+        Stage currentStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("hello-view2.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-
+        Scene newScene = new Scene(root, currentStage.getScene().getWidth(), currentStage.getScene().getHeight());
+        newScene.getStylesheets().addAll(currentStage.getScene().getStylesheets());
+        currentStage.setScene(newScene);
+        currentStage.setTitle("CV Builder - Data Entry");
+        currentStage.show();
     }
 
 
     @FXML
     public void generateCvFileAndSwitch(ActionEvent event) throws IOException {
-
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm CV Generation");
         alert.setHeaderText("Are you sure you want to generate your CV?");
         alert.setContentText("Check your data one last time before previewing.");
 
-
         Optional<ButtonType> result = alert.showAndWait();
-
 
         if (result.isPresent() && result.get() != ButtonType.OK) {
             return;
         }
-        Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
+        Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
         String fullName = fullNameField.getText();
         String email = emailField.getText();
@@ -128,7 +92,6 @@ public class HelloController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("preview_cv.fxml"));
         Parent root = loader.load();
 
-
         HelloController finalSceneController = loader.getController();
 
 
@@ -138,37 +101,37 @@ public class HelloController {
         finalSceneController.display_projects(projects);
         finalSceneController.display_education(educationText);
 
-
-        stage = primaryStage;
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("CV Builder - Final CV");
-        stage.show();
+        Scene newScene = new Scene(root, primaryStage.getScene().getWidth(), primaryStage.getScene().getHeight());
+        newScene.getStylesheets().addAll(primaryStage.getScene().getStylesheets());
+        primaryStage.setScene(newScene);
+        primaryStage.setTitle("CV Builder - Final CV");
+        primaryStage.show();
     }
+
 
 
     @FXML
     public void display_personal_info(String name2, String email2, String phone2, String address2) {
         if (name != null) {
-
-            name.setText(name2.trim().isEmpty() ? "CV Placeholder Name" : name2);
+            name.setText(name2.toUpperCase().trim().isEmpty() ? "CV PLACEHOLDER NAME" : name2.toUpperCase());
+            // Concatenate contact details into a single label below the name
             contact.setText(
-                    "Email: " + email2 + " | Phone: " + phone2 + " | Address: " + address2
+                    email2.trim() + " | " + phone2.trim() + " | " + address2.trim()
             );
         }
     }
+
     @FXML
     public void display_skills(String skills) {
         if (skilldisplay != null) {
-            skilldisplay.setText(skills);
-
+            skilldisplay.setText(skills.trim().isEmpty() ? "No skills entered." : skills);
         }
     }
+
     @FXML
     public void display_projects(String projects) {
         if (projectdisplay != null) {
-            projectdisplay.setText(projects);
-
+            projectdisplay.setText(projects.trim().isEmpty() ? "No professional summary entered." : projects);
         }
     }
 
