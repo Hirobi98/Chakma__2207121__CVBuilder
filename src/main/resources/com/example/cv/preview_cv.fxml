@@ -28,7 +28,7 @@
               <Label styleClass="cv-section-title" text="Educational Qualifications" />
               <VBox fx:id="educationDisplayVBox" spacing="10" />
       
-              <Button styleClass="button" text="Start Over">
+              <Button onAction="#switch_to_scene1" styleClass="button" text="Start Over">
                   <VBox.margin>
                   <Insets top="20" />
                </VBox.margin>
