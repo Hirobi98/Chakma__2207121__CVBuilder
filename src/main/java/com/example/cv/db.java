@@ -11,11 +11,8 @@ public class db {
     private Logger logger= Logger.getLogger(this.getClass().getName());
     private static db a;
 
-    // Private constructor
     private db() {
-
     }
-
 
     public static db b(){
         if(a == null){
@@ -25,14 +22,13 @@ public class db {
         return a;
     }
 
-    // Changed name of get_connection to 'c'
     void c(){
 
         try{
             if(connection==null || connection.isClosed()){
                 connection= DriverManager.getConnection("jdbc:sqlite:cv2.db");
                 logger.info("Connected to database successfully");
-                d(); // create_table
+                d();
             }
 
         } catch (SQLException e){
@@ -40,9 +36,7 @@ public class db {
         }
     }
 
-
     public void d(){
-
         String entry="CREATE TABLE if not exists cv_entries ("
                 + "fullName TEXT NOT NULL,"
                 + "email TEXT NOT NULL,"
@@ -64,10 +58,8 @@ public class db {
         }
     }
 
-    // Changed name of insert_data to 'e'
     public void e(cv_data data){
         String entry="Insert into cv_entries(fullName,email,phone,address,skills,projects,education,workExperience) values(?,?,?,?,?,?,?,?)";
-        // c(); <--- Removed, connection is now managed by the singleton
         try(PreparedStatement statement= connection.prepareStatement(entry)){
             statement.setString(1,data.getFullname());
             statement.setString(2,data.getEmail());
@@ -92,12 +84,10 @@ public class db {
 
     }
 
-
     public void f(cv_data data){
         String entry="Update cv_entries set "+
                 "phone=?,address=?,skills=?,projects=?,education=?,workExperience=?"
                 + " where fullName=? and email=? ";
-
         try(PreparedStatement statement= connection.prepareStatement(entry)){
 
             statement.setString(1,data.getPhone());
@@ -123,10 +113,8 @@ public class db {
 
     }
 
-
     public void g(String fullname, String email){
         String entry="delete from cv_entries where fullName=? and email=?";
-
         try(PreparedStatement statement= connection.prepareStatement(entry)){
             statement.setString(1,fullname);
             statement.setString(2,email);
@@ -145,7 +133,6 @@ public class db {
 
 
     }
-
 
     public ObservableList<cv_data>h(){
         ObservableList<cv_data> list = FXCollections.observableArrayList();
@@ -176,9 +163,34 @@ public class db {
         return list;
     }
 
+    public cv_data i(String fullname, String email){
+        String sql="select * from cv_entries where fullName=? and email=?;";
+        cv_data data = null;
 
+        try(PreparedStatement st=connection.prepareStatement(sql)){
+            st.setString(1, fullname);
+            st.setString(2, email);
+            ResultSet rs=st.executeQuery();
+            if(rs.next()){
+                data = new cv_data(
+                        rs.getString("fullName"),
+                        rs.getString("email"),
+                        rs.getString("phone"),
+                        rs.getString("address"),
+                        rs.getString("skills"),
+                        rs.getString("projects"),
+                        rs.getString("education"),
+                        rs.getString("workExperience")
+                );
+            }
 
-
+        }
+        catch(SQLException e){
+            logger.severe("Error retrieving single data: ");
+            e.printStackTrace();
+        }
+        return data;
+    }
 
 
 }

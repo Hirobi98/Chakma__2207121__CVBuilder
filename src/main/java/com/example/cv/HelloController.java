@@ -15,10 +15,13 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class HelloController {
-
     private final db a=db.b();
 
 
+    private boolean l = false;
+
+    private String m;
+    private String n;
 
 
     @FXML private TextField fullNameField;
@@ -60,7 +63,13 @@ public class HelloController {
     @FXML
     public void switch_to_scene2(ActionEvent event) throws IOException {
         Stage currentStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("hello-view2.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view2.fxml"));
+        Parent root = loader.load();
+
+
+        HelloController scene2Controller = loader.getController();
+        scene2Controller.l = false;
+
         Scene newScene = new Scene(root, currentStage.getScene().getWidth(), currentStage.getScene().getHeight());
         newScene.getStylesheets().addAll(currentStage.getScene().getStylesheets());
         currentStage.setScene(newScene);
@@ -131,6 +140,23 @@ public class HelloController {
             educationContainer.getChildren().add(rawTextLabel);
         }
     }
+
+
+    public void o(cv_data data) {
+        this.l = true;
+        this.m = data.getFullname();
+        this.n = data.getEmail();
+
+        fullNameField.setText(data.getFullname());
+        emailField.setText(data.getEmail());
+        phoneField.setText(data.getPhone());
+        addressField.setText(data.getAddress());
+        skillsTextArea.setText(data.getSkills());
+        projectsTextArea.setText(data.getProjects());
+        educationTextArea.setText(data.getEducation());
+        workExperienceTextArea.setText(data.getWorkexperience());
+    }
+
     private cv_data collectAndValidateData() {
         String fullName = fullNameField.getText().trim();
         String email = emailField.getText().trim();
@@ -144,7 +170,7 @@ public class HelloController {
             return null;
         }
 
-        // Collect all data
+
         String phone = phoneField.getText().trim();
         String address = addressField.getText().trim();
         String skills = skillsTextArea.getText().trim();
@@ -152,7 +178,7 @@ public class HelloController {
         String educationText = educationTextArea.getText().trim();
         String workExperienceText = workExperienceTextArea.getText().trim();
 
-        // Create the data object
+
         return new cv_data(
                 fullName, email, phone, address, skills, projects, educationText, workExperienceText
         );
@@ -160,7 +186,7 @@ public class HelloController {
 
     private void save_data(cv_data data) {
         if (data != null) {
-            a.e(data); // <--- Use a.e(data) for insert_data
+            a.e(data);
             Alert success = new Alert(Alert.AlertType.INFORMATION);
             success.setTitle("Save Successful");
             success.setHeaderText(null);
@@ -182,7 +208,7 @@ public class HelloController {
         String educationText = educationTextArea.getText().trim();
         String workExperienceText = workExperienceTextArea.getText().trim();
 
-        // Basic validation
+
         if (fullName.isEmpty() || email.isEmpty()) {
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("Input Error");
@@ -205,7 +231,23 @@ public class HelloController {
 
 
         cv_data data = new cv_data(fullName, email, phone, address, skills, projects, educationText, workExperienceText);
-        a.e(data);
+
+
+        if (l) {
+
+            if (!m.equals(data.getFullname()) || !n.equals(data.getEmail())) {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setTitle("Update Error");
+                error.setHeaderText("Key Fields Changed");
+                error.setContentText("For update functionality, Full Name and Email must remain the same as the original record being edited.");
+                error.showAndWait();
+                return;
+            }
+            a.f(data);
+        } else {
+            a.e(data);
+        }
+
 
         Alert success = new Alert(Alert.AlertType.INFORMATION);
         success.setTitle("Save Successful");
@@ -220,7 +262,6 @@ public class HelloController {
 
         HelloController finalSceneController = loader.getController();
 
-
         finalSceneController.display_personal_info(data.getFullname(), data.getEmail(), data.getPhone(), data.getAddress());
         finalSceneController.display_skills(data.getSkills());
         finalSceneController.display_work_experience(data.getWorkexperience());
@@ -233,8 +274,6 @@ public class HelloController {
         primaryStage.setTitle("CV Builder - Final CV");
         primaryStage.show();
     }
-
-
 
 
     @FXML
@@ -251,12 +290,33 @@ public class HelloController {
             return;
         }
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Update CV");
-        alert.setHeaderText("Data Retrieval for Update");
-        alert.setContentText("Functionality to retrieve data for '" + fullName + "' has been triggered.\n\n" +
-                "You would typically now load this entry's data into the input screen (Scene 2) for editing, and then call db.update_data() on save.");
-        alert.showAndWait();
+
+        a.c();
+        cv_data data = a.i(fullName, email);
+
+        if (data == null) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Retrieval Error");
+            error.setHeaderText("CV Entry Not Found");
+            error.setContentText("No CV entry found for Full Name: " + fullName + " and Email: " + email + ".");
+            error.showAndWait();
+            return;
+        }
+
+
+        Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view2.fxml"));
+        Parent root = loader.load();
+
+        HelloController scene2Controller = loader.getController();
+
+        scene2Controller.o(data);
+
+        Scene newScene = new Scene(root, primaryStage.getScene().getWidth(), primaryStage.getScene().getHeight());
+        newScene.getStylesheets().addAll(primaryStage.getScene().getStylesheets());
+        primaryStage.setScene(newScene);
+        primaryStage.setTitle("CV Builder - Edit Data: " + fullName);
+        primaryStage.show();
     }
 
     @FXML
@@ -281,7 +341,7 @@ public class HelloController {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            a.g(fullName, email); // <--- Use a.g(fullName, email) for delete_data
+            a.g(fullName, email);
             Alert success = new Alert(Alert.AlertType.INFORMATION);
             success.setTitle("Deletion Successful");
             success.setHeaderText(null);
@@ -290,24 +350,17 @@ public class HelloController {
             manageFullNameField.clear();
             manageEmailField.clear();
 
-            // Reload the table immediately after deletion
             loadSavedCvList();
         }
     }
 
-
-
     @FXML
     public void loadSavedCvList() {
         if (cvTable != null) {
-
-
             a.c();
             cvTable.setItems(a.h());
         }
     }
-
-
 
     @FXML
     public void viewSelectedCv(ActionEvent event) throws IOException {
@@ -322,14 +375,13 @@ public class HelloController {
             return;
         }
 
-        // Switch to the preview scene (preview_cv.fxml)
         Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("preview_cv.fxml"));
         Parent root = loader.load();
         HelloController finalSceneController = loader.getController();
 
-        // Pass selected data to the preview controller
+
         finalSceneController.display_personal_info(
                 selectedData.getFullname(),
                 selectedData.getEmail(),
