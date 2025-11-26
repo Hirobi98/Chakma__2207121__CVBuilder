@@ -63,6 +63,17 @@ public class HelloController {
         currentStage.show();
     }
 
+    @FXML
+    public void switch_to_scene3(ActionEvent event) throws IOException {
+        Stage currentStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("hello-view3.fxml"));
+        Scene newScene = new Scene(root, currentStage.getScene().getWidth(), currentStage.getScene().getHeight());
+        newScene.getStylesheets().addAll(currentStage.getScene().getStylesheets());
+        currentStage.setScene(newScene);
+        currentStage.setTitle("Manage your entry");
+        currentStage.show();
+    }
+
 
     @FXML
     public void generateCvFileAndSwitch(ActionEvent event) throws IOException {

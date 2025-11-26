@@ -79,18 +79,19 @@ public class db {
 
     public void update_data(cv_data data){
         String entry="Update cv_entries set "+
-        "fullName=?,email=?,phone=?,address=?,skills=?,projects=?,education=?,workExperience=?)"
+        "phone=?,address=?,skills=?,projects=?,education=?,workExperience=?)"
                 + " where fullName=? and email=? ";
         get_connection();
         try(PreparedStatement statement= connection.prepareStatement(entry)){
-            statement.setString(1,data.getFullname());
-            statement.setString(2,data.getEmail());
-            statement.setString(3,data.getPhone());
-            statement.setString(4,data.getAddress());
-            statement.setString(5,data.getSkills());
-            statement.setString(6,data.getProjects());
-            statement.setString(7,data.getEducation());
-            statement.setString(8, data.getWorkexperience());
+
+            statement.setString(1,data.getPhone());
+            statement.setString(2,data.getAddress());
+            statement.setString(3,data.getSkills());
+            statement.setString(4,data.getProjects());
+            statement.setString(5,data.getEducation());
+            statement.setString(6, data.getWorkexperience());
+            statement.setString(7, data.getFullname());
+            statement.setString(8, data.getEmail());
             statement.executeUpdate();
             logger.info("updated data successfully");
 
