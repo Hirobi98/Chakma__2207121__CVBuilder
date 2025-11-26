@@ -9,18 +9,30 @@ import java.util.logging.Logger;
 public class db {
     private Connection connection;
     private Logger logger= Logger.getLogger(this.getClass().getName());
-    public db() {
-        this.connection = connection;
+    private static db a;
+
+    // Private constructor
+    private db() {
+
     }
 
-    void get_connection(){
+
+    public static db b(){
+        if(a == null){
+            a = new db();
+            a.c();
+        }
+        return a;
+    }
+
+    // Changed name of get_connection to 'c'
+    void c(){
 
         try{
             if(connection==null || connection.isClosed()){
                 connection= DriverManager.getConnection("jdbc:sqlite:cv2.db");
                 logger.info("Connected to database successfully");
-                create_table();
-
+                d(); // create_table
             }
 
         } catch (SQLException e){
@@ -28,8 +40,9 @@ public class db {
         }
     }
 
-    public void create_table(){
-        get_connection();
+
+    public void d(){
+
         String entry="CREATE TABLE if not exists cv_entries ("
                 + "fullName TEXT NOT NULL,"
                 + "email TEXT NOT NULL,"
@@ -51,9 +64,10 @@ public class db {
         }
     }
 
-    public void insert_data(cv_data data){
+    // Changed name of insert_data to 'e'
+    public void e(cv_data data){
         String entry="Insert into cv_entries(fullName,email,phone,address,skills,projects,education,workExperience) values(?,?,?,?,?,?,?,?)";
-        get_connection();
+        // c(); <--- Removed, connection is now managed by the singleton
         try(PreparedStatement statement= connection.prepareStatement(entry)){
             statement.setString(1,data.getFullname());
             statement.setString(2,data.getEmail());
@@ -69,6 +83,7 @@ public class db {
 
         }catch(SQLException e){
             logger.severe("Error inserting data: ");
+            e.printStackTrace();
         }
 
 
@@ -77,11 +92,12 @@ public class db {
 
     }
 
-    public void update_data(cv_data data){
+
+    public void f(cv_data data){
         String entry="Update cv_entries set "+
-        "phone=?,address=?,skills=?,projects=?,education=?,workExperience=?)"
+                "phone=?,address=?,skills=?,projects=?,education=?,workExperience=?"
                 + " where fullName=? and email=? ";
-        get_connection();
+
         try(PreparedStatement statement= connection.prepareStatement(entry)){
 
             statement.setString(1,data.getPhone());
@@ -97,7 +113,8 @@ public class db {
 
 
         }catch(SQLException e){
-            logger.severe("Error inserting data: ");
+            logger.severe("Error updating data: ");
+            e.printStackTrace();
         }
 
 
@@ -106,9 +123,10 @@ public class db {
 
     }
 
-    public void delete_data(String fullname, String email){
+
+    public void g(String fullname, String email){
         String entry="delete from cv_entries where fullName=? and email=?";
-        get_connection();
+
         try(PreparedStatement statement= connection.prepareStatement(entry)){
             statement.setString(1,fullname);
             statement.setString(2,email);
@@ -118,7 +136,8 @@ public class db {
 
 
         }catch(SQLException e){
-            logger.severe("Error inserting data: ");
+            logger.severe("Error deleting data: ");
+            e.printStackTrace();
         }
 
 
@@ -126,7 +145,9 @@ public class db {
 
 
     }
-    public ObservableList<cv_data>get_all_data(){
+
+
+    public ObservableList<cv_data>h(){
         ObservableList<cv_data> list = FXCollections.observableArrayList();
         String sql="select * from cv_entries;";
 
@@ -149,7 +170,8 @@ public class db {
 
         }
         catch(SQLException e){
-            logger.severe("Error inserting data: ");
+            logger.severe("Error retrieving data: ");
+            e.printStackTrace();
         }
         return list;
     }
